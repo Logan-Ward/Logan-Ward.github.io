@@ -3,7 +3,11 @@
 //////////////////////////////////////////////////////////////////////
 
 function objectValues(object) {
-
+    let array = [];
+    for(let key in object){
+        array.push(object[key]);
+    }
+    return array;
 } 
 
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +15,11 @@ function objectValues(object) {
 //////////////////////////////////////////////////////////////////////
 
 function keysToString(object) {
-
+    let str = [];
+    for(let key in object){
+        str.push(key);
+    }
+    return str.join(' ');
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -19,7 +27,13 @@ function keysToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function valuesToString(object) {
-    
+    let str = [];
+    for(let key in object){
+        if(typeof object[key] === 'string'){
+            str.push(object[key]);
+        }
+    }
+    return str.join(' ');
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +41,10 @@ function valuesToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function arrayOrObject(collection) {
-    
+    if(Array.isArray(collection)){
+        return 'array';
+    }
+    return 'object';
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +52,7 @@ function arrayOrObject(collection) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeWord(string) {
-    
+    return string[0].toUpperCase() + string.substring(1);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -43,7 +60,11 @@ function capitalizeWord(string) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeAllWords(string) {
-    
+    let arr = string.split(' ');
+    for(let i = 0; i < arr.length; i++){
+        arr[i] = arr[i][0].toUpperCase() + arr[i].substring(1);
+    }
+    return arr.join(' ');
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -51,7 +72,7 @@ function capitalizeAllWords(string) {
 //////////////////////////////////////////////////////////////////////
 
 function welcomeMessage(object) {
-
+    return 'Welcome ' + capitalizeWord(object.name) + '!';
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -59,7 +80,7 @@ function welcomeMessage(object) {
 //////////////////////////////////////////////////////////////////////
 
 function profileInfo(object) {
-
+    return capitalizeWord(object.name) + ' is a ' + capitalizeWord(object.species);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -67,7 +88,10 @@ function profileInfo(object) {
 //////////////////////////////////////////////////////////////////////
 
 function maybeNoises(object) {
-
+if(object.noises !== undefined && object.noises.length !== 0){
+    return object.noises.join(' ');
+}
+return 'there are no noises';
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -75,7 +99,13 @@ function maybeNoises(object) {
 //////////////////////////////////////////////////////////////////////
 
 function hasWord(string, word) {
-
+    let arr = string.split(' ');
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i] === word){
+            return true;
+        }
+    }
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -83,7 +113,8 @@ function hasWord(string, word) {
 //////////////////////////////////////////////////////////////////////
 
 function addFriend (name, object) {
-
+    object.friends.push(name);
+    return object;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -91,7 +122,14 @@ function addFriend (name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function isFriend(name, object) {
-
+    if(object.friends !== undefined){
+        for(let i = 0; i < object.friends.length; i++){
+            if(object.friends[i] === name){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -99,7 +137,22 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
-
+    let arr = [];
+    let friend = false;
+    for(let i = 0; i < array.length; i++){
+        friend = false;
+        if(array[i].name !== name){
+            for(let j = 0; j < array[i].friends.length; j++){
+                if(array[i].friends[j] === name){
+                    friend = true;
+                }
+            }
+            if(!friend){
+                arr.push(array[i].name);
+            }
+        }
+    }
+    return arr;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -107,7 +160,8 @@ function nonFriends(name, array) {
 //////////////////////////////////////////////////////////////////////
 
 function updateObject(object, key, value) {
-
+    object[key] = value;
+    return object;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -115,7 +169,13 @@ function updateObject(object, key, value) {
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-
+    for(let i = 0; i < array.length; i++){
+        for(let key in object){
+            if(key === array[i]){
+                delete object[key];
+            }
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -123,7 +183,20 @@ function removeProperties(object, array) {
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
-
+    let arr = [array[0]];
+    let dupe = false;
+    for(let i = 1; i < array.length; i++){
+        dupe = false;
+        for(let j = 0; j < arr.length; j++){
+            if(array[i] === arr[j]){
+                dupe = true;
+            }
+        }
+        if(dupe === false){
+            arr.push(array[i]);
+        }
+    }
+    return arr;
 }
 
 //////////////////////////////////////////////////////////////////////
