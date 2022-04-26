@@ -14,3 +14,8 @@
 6) in terminal => sudo apt-get install subversion
 7) in terminal => npm install -g opspark
 8) in terminal => os install
+
+## How to Access Lodown Director
+1) Go to File > Open File > make search bar look like this: /workspace/
+2) Select lodown
+3) Select index.js

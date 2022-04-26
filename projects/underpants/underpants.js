@@ -21,6 +21,9 @@ var _ = {};
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
+_.identity = function(value){
+    return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -42,6 +45,15 @@ var _ = {};
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value){
+    if(Array.isArray(value)){
+        return 'array';
+    }
+    if(value === null){
+        return 'null';
+    }
+    return typeof value;
+}
 
 /** _.first
 * Arguments:
@@ -61,6 +73,26 @@ var _ = {};
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
 
+_.first = function(array, num){
+    let newArray = [];
+    if(!Array.isArray(array)){
+        return [];
+    }
+
+    if(typeof num !== 'number' || num === undefined){
+        return array[0];
+    }
+    if(num <= 0){
+        return [];
+    }
+    if(num > array.length - 1){
+        return array;
+    }
+    for(let i = 0; i < num; i++){
+        newArray.push(array[i]);
+    }
+    return newArray;
+}
 
 /** _.last
 * Arguments:
@@ -80,6 +112,26 @@ var _ = {};
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = function(array, num){
+    let newArray = [];
+    if(!Array.isArray(array)){
+        return [];
+    }
+
+    if(typeof num !== 'number' || num === undefined){
+        return array[array.length - 1];
+    }
+    if(num <= 0){
+        return [];
+    }
+    if(num > array.length - 1){
+        return array;
+    }
+    for(let i = 0; i < num; i++){
+        newArray.unshift(array[array.length - i - 1]);
+    }
+    return newArray;
+}
 
 /** _.indexOf
 * Arguments:
@@ -97,6 +149,14 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(array, value){
+    for(let i = 0; i < array.length; i++){
+        if(array[i] === value){
+            return i;
+        }
+    }
+    return -1;
+}
 
 /** _.contains
 * Arguments:
@@ -113,6 +173,13 @@ var _ = {};
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(array, value){
+    let veracity = false;
+    for(let i = 0; i < array.length; i++){
+        array[i] === value ? veracity = true  : null
+    }
+    return veracity;
+}
 
 /** _.each
 * Arguments:
@@ -130,6 +197,18 @@ var _ = {};
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = function(item, action){
+    if(Array.isArray(item)){
+        for(let i = 0; i < item.length; i++){
+            action(item[i], i, item);
+        }
+    }
+    else{
+        for(let i in item){
+            action(item[i], i, item);
+        }
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -141,6 +220,15 @@ var _ = {};
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
 
+_.unique = function(array){
+    let newArr = [];
+    for(let i = 0; i < array.length; i++){
+        if(_.indexOf(newArr, array[i]) === -1){
+            newArr.push(array[i]);
+        }
+    }
+    return newArr;
+}
 
 /** _.filter
 * Arguments:
@@ -158,6 +246,15 @@ var _ = {};
 *   use _.each in your implementation
 */
 
+_.filter = function(array, test){
+    let newArr = [];
+    _.each(array, function(val, index, arr){
+        if(test(val, index, arr)){
+            newArr.push(val);
+        }
+    })
+    return newArr;
+}
 
 /** _.reject
 * Arguments:
@@ -172,6 +269,15 @@ var _ = {};
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
+_.reject = function(array, test){
+    let newArr = [];
+    _.each(array, function(val, index, arr){
+        if(!test(val, index, arr)){
+            newArr.push(val);
+        }
+    })
+    return newArr;
+}
 
 /** _.partition
 * Arguments:
@@ -192,6 +298,19 @@ var _ = {};
 }
 */
 
+_.partition = function(array, test){
+    let trueArr = [];
+    let falseArr = [];
+    _.each(array, function(val, index, arr){
+        if(test(val, index, arr)){
+            trueArr.push(val);
+        } 
+        else{
+            falseArr.push(val);
+        }
+    })
+    return [trueArr, falseArr];
+}
 
 /** _.map
 * Arguments:
@@ -209,6 +328,18 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(item, func){
+    let newArr = [];
+    if(Array.isArray(item)){
+        for(let i =0; i < item.length; i++){
+            newArr[i] = func(item[i], i, item);
+        }
+    }
+    else{
+        
+    }
+    return newArr;
+}
 
 /** _.pluck
 * Arguments:
