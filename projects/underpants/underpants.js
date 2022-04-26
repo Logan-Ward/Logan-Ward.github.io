@@ -388,6 +388,41 @@ _.pluck = function(array, prop){
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 
+_.every = function(item, func){
+    if(Array.isArray(item)){
+        if(func === undefined){
+            for(let i = 0; i < item.length; i++){
+                if(!item[i]){
+                    return false;
+                }
+            }
+        }
+        else{
+            for(let i = 0; i < item.length; i++){
+                if(!func(item[i], i, item)){
+                    return false;
+                }
+            }
+        }
+    }
+    else{
+        if(func === undefined){
+            for(let i in item){
+                if(!item[i]){
+                    return false;
+                }
+            }
+        }
+        else{
+            for(let i in item){
+                if(!func(item[i], i, item)){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 
 /** _.some
 * Arguments:
@@ -410,6 +445,41 @@ _.pluck = function(array, prop){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = function(item, func){
+    if(Array.isArray(item)){
+        if(func === undefined){
+            for(let i = 0; i < item.length; i++){
+                if(item[i]){
+                    return true;
+                }
+            }
+        }
+        else{
+            for(let i = 0; i < item.length; i++){
+                if(func(item[i], i, item)){
+                    return true;
+                }
+            }
+        }
+    }
+    else{
+        if(func === undefined){
+            for(let i in item){
+                if(item[i]){
+                    return true;
+                }
+            }
+        }
+        else{
+            for(let i in item){
+                if(func(item[i], i, item)){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
 
 /** _.reduce
 * Arguments:
@@ -430,6 +500,22 @@ _.pluck = function(array, prop){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function(array, func, seed){
+    let previous;
+    if(seed === undefined){
+        previous = array[0]
+        for(let i = 1; i < array.length; i++){
+            previous = func(previous, array[i], i);
+        }
+    }
+    else{
+        previous = seed;
+        for(let i = 0; i < array.length; i++){
+            previous = func(previous, array[i], i);
+        }
+    }
+    return previous;
+}
 
 /** _.extend
 * Arguments:
@@ -445,6 +531,15 @@ _.pluck = function(array, prop){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function(...objects){
+    for(let i = 1; i < objects.length; i++){
+        for(let j in objects[i]){
+            objects[0][j] = objects[i][j];
+        }
+    }
+    return objects[0];
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
