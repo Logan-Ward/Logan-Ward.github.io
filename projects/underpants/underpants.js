@@ -336,7 +336,11 @@ _.map = function(item, func){
         }
     }
     else{
-        
+        let count = 0;
+        for(let i in item){
+            newArr[count] = func(item[i], i, item);
+            count++;
+        }
     }
     return newArr;
 }
@@ -352,6 +356,16 @@ _.map = function(item, func){
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
+_.pluck = function(array, prop){
+    let myArr = _.map(array, function(value, property, arr){
+        for(let i in value){
+            if(i === prop){
+                return value[i];
+            }
+        }
+    })
+    return myArr;
+}
 
 /** _.every
 * Arguments:
