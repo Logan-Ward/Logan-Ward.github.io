@@ -59,27 +59,76 @@ var averageBalance = function(array){
     for(let i = 0; i < array.length; i++){
         let strNum = '';
         for(let j = 0; j < array[i].balance.length; j++){
-            console.log(parseInt(array[i].balance[j]));
-            if(typeof parseInt(array[i].balance[j]) === 'number' || array[i].balance[j] === '.'){
+            if(array[i].balance[j] !== '$' && array[i].balance[j] !== ','){
                 strNum += array[i].balance[j];
             }
         }
-        console.log(parseFloat(strNum));
         sum += parseFloat(strNum);
         count++;
     }
-    console.log(sum);
     return sum / count;
 }
-console.log(averageBalance(customers));
 
-var firstLetterCount;
+var firstLetterCount = function(array, char){
+    let count = 0;
+    for(let i = 0; i < array.length; i++){
+        if(array[i].name[0] === char){
+            count++;
+        }
+    }
+    return count;
+}
 
-var friendFirstLetterCount;
+var friendFirstLetterCount = function(array, customer, char){
+    let count = 0;
+    for(let i = 0; i < customer.friends.length; i++){
+        if(customer.friends[i].name[0] === char){
+            count++;
+        }
+    }
+    return count;
+}
 
-var friendsCount;
+var friendsCount = function(array, name){
+    let arr = [];
+    for(let i = 0; i < array.length; i++){
+        for(let j = 0; j < array[i].friends.length; j++){
+            if(array[i].friends[j] === name){
+                arr.push(array[i].name);
+            }
+        }
+    }
+    return arr;
+}
 
-var topThreeTags;
+var topThreeTags = function(array){
+    let tagCount = [];
+    for(let i = 0; i < array.length; i++){
+        for(let j = 0; j < array[i].tags.length; j++){
+            if(tagCount.length === 0){
+                tagCount[0] = {
+                    tag : array[i].tags[j],
+                    count : 1
+                }
+            } else{
+                for(let k = 0; k < tagCount.length; k++){
+                    if(tagCount[k] === array[i].tags[j]){
+                        tagCount[k].count++;
+                    }
+                    else if(k === tagCount.length - 1){
+                        tagCount[tagCount.length] = {
+                            tag : array[i].tags[j],
+                            count : 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    tagCount.sort((a,b) => (a.count > b.count) ? 1 : ((b.count > a.count) ? -1 : 0))
+    return tagCount.slice(0,3);
+}
+console.log(topThreeTags(customers));
 
 var genderCount;
 
