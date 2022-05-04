@@ -72,7 +72,7 @@ var averageBalance = function(array){
 var firstLetterCount = function(array, char){
     let count = 0;
     for(let i = 0; i < array.length; i++){
-        if(array[i].name[0] === char){
+        if(array[i].name[0].toUpperCase() === char.toUpperCase()){
             count++;
         }
     }
@@ -81,8 +81,15 @@ var firstLetterCount = function(array, char){
 
 var friendFirstLetterCount = function(array, customer, char){
     let count = 0;
-    for(let i = 0; i < customer.friends.length; i++){
-        if(customer.friends[i].name[0] === char){
+    let customerObj = {};
+    for(let i = 0; i < array.length; i++){
+        if(array[i].name === customer){
+            customerObj = array[i];
+            break;
+        }
+    }
+    for(let i = 0; i < customerObj.friends.length; i++){
+        if(customerObj.friends[i].name[0].toUpperCase() === char.toUpperCase()){
             count++;
         }
     }
@@ -93,8 +100,9 @@ var friendsCount = function(array, name){
     let arr = [];
     for(let i = 0; i < array.length; i++){
         for(let j = 0; j < array[i].friends.length; j++){
-            if(array[i].friends[j] === name){
+            if(array[i].friends[j].name === name){
                 arr.push(array[i].name);
+                break;
             }
         }
     }
@@ -102,35 +110,61 @@ var friendsCount = function(array, name){
 }
 
 var topThreeTags = function(array){
-    let tagCount = [];
+    let tagArr = [];
+    let tagArrObj = [];
     for(let i = 0; i < array.length; i++){
         for(let j = 0; j < array[i].tags.length; j++){
-            if(tagCount.length === 0){
-                tagCount[0] = {
-                    tag : array[i].tags[j],
-                    count : 1
-                }
-            } else{
-                for(let k = 0; k < tagCount.length; k++){
-                    if(tagCount[k] === array[i].tags[j]){
-                        tagCount[k].count++;
-                    }
-                    else if(k === tagCount.length - 1){
-                        tagCount[tagCount.length] = {
-                            tag : array[i].tags[j],
-                            count : 1
-                        }
-                    }
-                }
+            if(tagArr.includes(array[i].tags[j])){
+                tagArrObj[array[i].tags[j]] = tagArrObj[array[i].tags[j]] + 1;
+            }
+            else{
+                tagArr.push(array[i].tags[j]);
+                tagArrObj[array[i].tags[j]] = 1;
             }
         }
     }
-    tagCount.sort((a,b) => (a.count > b.count) ? 1 : ((b.count > a.count) ? -1 : 0))
-    return tagCount.slice(0,3);
+    let first = {};
+    let second = {};
+    let third = {};
+    for(let key in tagArrObj){
+        if(tagArrObj[key] > first.value || first.value === undefined){
+            third = second;
+            second = first;
+            first = {
+                name : key,
+                value : tagArrObj[key]
+            }
+            console.log(first);
+        }
+        else if(tagArrObj[key] > second.value){
+            third = second;
+            second = {
+                name : key,
+                value : tagArrObj[key]
+            }
+            console.log(second);
+        }
+        else if(tagArrObj[key] > third.value){
+            third = {
+                name : key,
+                value : tagArrObj[key]
+            }
+            console.log(third);
+        }
+    }
+    return [first.name, second.name, third.name];
 }
-console.log(topThreeTags(customers));
 
-var genderCount;
+var genderCount = function(array){
+   let femaleCount = _.reduce(array, (prev, customer) => customer.gender === 'female' ? prev + 1 : prev, 0);
+   let maleCount = _.reduce(array, (prev, customer) => customer.gender === 'male' ? prev + 1 : prev, 0);
+   let nonbinary = _.reduce(array, (prev, customer, array) => customer.gender === 'non-binary' ? prev + 1 : prev, 0);
+   return {
+       'male' : maleCount,
+       'female' : femaleCount,
+       'non-binary': nonbinary
+   };
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
