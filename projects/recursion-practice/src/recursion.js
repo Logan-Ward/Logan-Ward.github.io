@@ -5,12 +5,18 @@
 // Example:  5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5);  // 120
 var factorial = function(n) {
-  return n == 2 ? 2 : n * factorial(n - 1);
+  if(n < 0){
+    return null;
+  }
+  return n <= 1 ? 1 : n * factorial(n - 1);
 };
 
 // 2. Compute the sum of an array of integers.
 // Example:  sum([1, 2, 3, 4, 5, 6]);  // 21
 var sum = function(array) {
+  if(array.length === 0){
+    return 0;
+  }
   return array.length === 1 ? array[0] : array[0] + sum(array.slice(1));
 };
 
@@ -34,7 +40,12 @@ var isEven = function(n) {
   if(n === -1){
     return false;
   }
-  return isEven(n - 2);
+  if(n > 0){
+    return isEven(n - 2);
+  }
+  if(n < 0){
+    return isEven(-n - 2);
+  }
 };
 
 // 5. Sum all integers below a given integer.
@@ -194,7 +205,6 @@ var rMap = function(array, callback) {
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
 var countKeysInObj = function(obj, key) {
-  if(obj.)
 };
 
 // 22. Write a function that counts the number of times a value occurs in an object.
