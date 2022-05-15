@@ -412,6 +412,13 @@ var augmentElements = function(array, aug) {
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+  if(array.length === 1){
+    return [array[0]];
+  }
+  if(array[0] === 0 && array[1] === 0){
+    return minimizeZeroes(array.slice(1));
+  }
+  return [array[0]].concat(minimizeZeroes(array.slice(1)));
 };
 
 // 34. Alternate the numbers in an array between positive and negative regardless of
@@ -419,6 +426,17 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
+  if(array.length === 1){
+    return array[0] < 0 ? [-array[0]] : [array[0]];
+  }
+  let temp = array[array.length - 1];
+  if((array.length - 1) % 2 === 0 && temp < 0){
+    temp = -temp;
+  }
+  else if((array.length - 1) % 2 !== 0 && temp > 0){
+    temp = -temp
+  }
+  return alternateSign(array.slice(0, -1).concat[temp];
 };
 
 // 35. Given a string, return a string with digits converted to their word equivalent.
