@@ -17,7 +17,7 @@ console.log(num); // Prints "2" to the console
 // Using the "+=" assignment operator to give the num variable in the left operand the value of itself plus three in the 
 // right operand
 num += 3;
-console.log(num) // Prints "5" to the console
+console.log(num); // Prints "5" to the console
 
 /*
 2. Arithmetic Operators
