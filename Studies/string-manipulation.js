@@ -30,3 +30,5 @@ console.log(str1.concat(" there neighbor"));
 // Prints "H" to the console because the slice method returns the characters in the string starting at the first index and 
 // ending just before the second index given.
 console.log(str1.slice(0, 1));
+// Prints "HI" to the console because the toUpperCase method returns the given string in all upper case
+console.log(str1.toUpperCase());

@@ -6,8 +6,21 @@ Loops are code blocks that will run a repeated amount of times depending on the 
 for loops, while loops, and for-in loops.
 
 1. Loop types
-For loops will loop a set number of times. While loops will loop until their condition is false. For-in loops will loop once for
-each key in an object.
+For loops will loop a set number of times. 
+for (start; stop; update) { // code to run }
+start: defines counting variable
+stop: defines condition that when false will stop the loop
+update: defines how to increment or decrement the counting variable
+
+While loops will loop until their condition is false. 
+while (condition) { // code to run }
+condition: A Boolean expression or a value that can be resolved to a boolean that determines when the loop will stop
+
+For-in loops will loop once for each key in an object.
+for (key in object){ // code to run }
+key: defines a variable representing a key in the object
+in: a keyword required for this type of loop
+object: the name of the object to be looped through
 */
 
 // This will loop the code block 10 times

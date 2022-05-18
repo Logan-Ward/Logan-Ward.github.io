@@ -29,6 +29,12 @@ var num1 = 2 + 3; // Assigning num1 the result of adding the values 2 and 3
 console.log(num1); // Prints "5" to the console
 num1 = 48 / 6; // Assigning num1 the result of dividing 48 by 6
 console.log(num1); // Prints "8" to the console
+num1 = 48 - 6; // Assigning num1 the result of subtracting 48 by 6
+console.log(num1); // Prints "42" to the console
+num1 = 8 * 6; // Assigning num1 the result of multiplying 8 by 6
+console.log(num1); // Prints "48" to the console
+num1 = 48 % 5; // Assigning num1 the result of 48 modulo 5
+console.log(num1); // Prints "3" to the console
 
 /*
 3. Comparison Operators
@@ -46,6 +52,15 @@ if(1 < 2){ // Compares if 1 is less than 2 and returns true
 }
 if(1 >= 2){ // Compares if 1 is greater than or equal to 2 and returns false
     console.log("false"); // This will not print to the console because the condition was false
+}
+if(1 === "1"){ // Compares if 1 is equal to and the same datatype as "1" and returns false
+    console.log("false"); // This will not print to the console because the condition was false
+}
+if(1 == "1"){ // Compares if 1 is the same value as "1" and returns true
+    console.log("true"); // This will print to the console because the condition was true
+}
+if(1 !== 2){ // Compares if 1 is not equal to 2 and returns true
+    console.log("true"); // This will print to the console because the condition was true
 }
 
 /*

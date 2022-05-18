@@ -27,6 +27,8 @@ Booleans are simple data types that are either true or false.
 
 var bool = true; // Initializing a variable to the boolean data type
 console.log(typeof bool); // Prints boolean to the console because true is a boolean data type
+bool = 4 > 5; // Assigning the result of the boolean expression "4 > 5" to the bool variable
+console.log(bool); // Prints "false" to the console because the boolean expression evaluated to false
 
 /*
 4. Array
